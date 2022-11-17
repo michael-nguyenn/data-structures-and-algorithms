@@ -93,6 +93,7 @@ const intersection = (arr1: number[], arr2: number[]): number[] => {
     intersectionArray: number[] = [];
   let hashTable: Record<number, boolean> = {};
 
+  // Determining longer array
   if (arr1.length >= arr2.length) {
     longerArray = arr1;
     shorterArray = arr2;
@@ -101,11 +102,14 @@ const intersection = (arr1: number[], arr2: number[]): number[] => {
     shorterArray = arr1;
   }
 
+  // Creating Hash Table
   for (const number of longerArray) {
     hashTable[number] = true;
   }
 
+  // Looping through the smaller
   for (const number of shorterArray) {
+    // If number exists in hash table, then we push it into a new array
     if (hashTable[number]) intersectionArray.push(number);
   }
 
@@ -121,19 +125,20 @@ let duplicateArray = ["a", "b", "c", "d", "c", "e", "f"];
 
 const firstDuplicate = (array: string[]): string => {
   let hashMap: Record<string, number> = {};
-  let letter: string = "";
+  let firstDuplicate: string = "";
 
   // Creating Hash Map. If the key already exists, then we return the letter
-  for (let i = 0; i < array.length; i++) {
-    if (hashMap[array[i]]) {
-      letter = array[i];
+  for (const letter of array) {
+    if (hashMap[letter]) {
+      firstDuplicate = letter;
     } else {
       // Creating the Hash Map, and equalling each key to an arbitrary number
-      hashMap[array[i]] = 1;
+      hashMap[letter] = 1;
     }
   }
-  return letter;
+  return firstDuplicate;
 };
 
 const firstDuplicateLetter = firstDuplicate(duplicateArray);
-console.log(firstDuplicateLetter);
+// 3.
+//
