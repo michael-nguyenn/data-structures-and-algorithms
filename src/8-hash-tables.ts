@@ -9,7 +9,7 @@ let arrayC = ["b", "d", "f", "h"];
 
 // First approach would be using nested loops
 const isSubset = (arr1: string[], arr2: string[]): boolean => {
-  let largerArray, smallerArray;
+  let largerArray: string[], smallerArray: string[];
 
   // Determining which array is smaller
   if (arr1.length > arr2.length) {
@@ -47,7 +47,7 @@ const answer = isSubset(arrayA, arrayB);
 // Second Approach using a hash table
 
 const isSubsetHashed = (arr1: string[], arr2: string[]): boolean => {
-  let largerArray, smallerArray;
+  let largerArray: string[], smallerArray: string[];
   let hashTable: Record<string, boolean> = {};
 
   // Determining which array is smaller
@@ -76,3 +76,64 @@ const isSubsetHashed = (arr1: string[], arr2: string[]): boolean => {
 const answerHash = isSubsetHashed(arrayA, arrayC);
 
 ///////////////////////////////////////////////////////////////
+
+/// EXERCISES
+
+// 1.
+/* Write a function that returns the intersection of two arrays. The intersection is a third array
+that contains all values contained within the first two arrays.
+*/
+
+let numberOneArray = [1, 2, 3, 4, 5];
+let numberTwoArray = [0, 2, 4, 6, 8];
+
+const intersection = (arr1: number[], arr2: number[]): number[] => {
+  let longerArray: number[],
+    shorterArray: number[],
+    intersectionArray: number[] = [];
+  let hashTable: Record<number, boolean> = {};
+
+  if (arr1.length >= arr2.length) {
+    longerArray = arr1;
+    shorterArray = arr2;
+  } else {
+    longerArray = arr2;
+    shorterArray = arr1;
+  }
+
+  for (const number of longerArray) {
+    hashTable[number] = true;
+  }
+
+  for (const number of shorterArray) {
+    if (hashTable[number]) intersectionArray.push(number);
+  }
+
+  return intersectionArray;
+};
+
+const intersectionArray = intersection(numberOneArray, numberTwoArray);
+
+// 2.
+// Write a function that accepts an array of strings and returns the first duplicate value it finds
+
+let duplicateArray = ["a", "b", "c", "d", "c", "e", "f"];
+
+const firstDuplicate = (array: string[]): string => {
+  let hashMap: Record<string, number> = {};
+  let letter: string = "";
+
+  // Creating Hash Map. If the key already exists, then we return the letter
+  for (let i = 0; i < array.length; i++) {
+    if (hashMap[array[i]]) {
+      letter = array[i];
+    } else {
+      // Creating the Hash Map, and equalling each key to an arbitrary number
+      hashMap[array[i]] = 1;
+    }
+  }
+  return letter;
+};
+
+const firstDuplicateLetter = firstDuplicate(duplicateArray);
+console.log(firstDuplicateLetter);
