@@ -125,20 +125,74 @@ let duplicateArray = ["a", "b", "c", "d", "c", "e", "f"];
 
 const firstDuplicate = (array: string[]): string => {
   let hashMap: Record<string, number> = {};
-  let firstDuplicate: string = "";
 
   // Creating Hash Map. If the key already exists, then we return the letter
   for (const letter of array) {
     if (hashMap[letter]) {
-      firstDuplicate = letter;
+      return letter;
     } else {
       // Creating the Hash Map, and equalling each key to an arbitrary number
       hashMap[letter] = 1;
     }
   }
-  return firstDuplicate;
+  return "This array has no duplicates!";
 };
 
 const firstDuplicateLetter = firstDuplicate(duplicateArray);
+
 // 3.
-//
+// Write a function that accepts a string that contains all the letters of the alphabet except one and return the missing letter.
+
+let alphabetString = "the quick brown box jumps over a lazy dog";
+
+const missingAlphabet = (phrase: string): string => {
+  //prettier-ignore
+  let alphabet = ["a", "b", "c", 'd','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+  let hashMap: Record<string, boolean> = {};
+
+  // Creating hash map of the phrase
+  for (const letter of phrase.toLocaleLowerCase()) {
+    hashMap[letter] = true;
+  }
+
+  // Looping through the alphabet
+  for (const letter of alphabet) {
+    // If the hashmap key at letter of alphabet doesn't exist, then the phrase does not contain letter
+    if (!hashMap[letter]) return letter;
+  }
+
+  // Making it this far means that there were no duplicates
+  return "Your phrase has no duplicates :)";
+};
+
+const missingLetter = missingAlphabet(alphabetString);
+
+// 4.
+// Write a function that returns the first non-duplicated character in a string
+
+let duplicateString = "minimum";
+
+const duplicateLetter = (word: string): string => {
+  let hashMap: Record<string, number> = {};
+  let lowerCaseWord = word.toLocaleLowerCase();
+
+  // Creating hash map
+  for (const letter of lowerCaseWord) {
+    // If there is a duplicate, we increment the value
+    if (hashMap[letter]) {
+      hashMap[letter] += 1;
+    } else {
+      // If there is no duplicate, assign value 1
+      hashMap[letter] = 1;
+    }
+  }
+
+  for (const letter of lowerCaseWord) {
+    // If value is 1, return the first instance of it
+    if (hashMap[letter] === 1) return letter;
+  }
+
+  return "Your word has no duplicates";
+};
+
+const dupeLetter = duplicateLetter(duplicateString);
