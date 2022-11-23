@@ -72,4 +72,26 @@ const linter = new Linter();
 const phrase = "(var x = {y: [1,2,3]})";
 // const phrase = "{";
 
-console.log(linter.lint(phrase));
+// console.log(linter.lint(phrase));
+
+//////////////////////// Page: 45 - QUEUE IMPLEMENTATION
+
+class Queue {
+  protected queue: (string | number)[] = [];
+
+  enqueue(element: string | number) {
+    this.queue.push(element);
+  }
+
+  dequeue() {
+    this.queue.shift();
+  }
+
+  get read(): string | number {
+    return this.queue[0];
+  }
+}
+
+const queue = new Queue();
+queue.enqueue("hello");
+console.log(queue.read);
