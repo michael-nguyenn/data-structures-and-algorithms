@@ -9,7 +9,7 @@ class Stack {
     this.data.push(element);
   }
 
-  pop() {
+  pop(): any {
     this.data.pop();
   }
 
@@ -76,22 +76,81 @@ const phrase = "(var x = {y: [1,2,3]})";
 
 //////////////////////// Page: 45 - QUEUE IMPLEMENTATION
 
-class Queue {
-  protected queue: (string | number)[] = [];
+class Queue<T> {
+  private queue: T[] = [];
 
-  enqueue(element: string | number) {
+  enqueue(element: T) {
     this.queue.push(element);
   }
 
   dequeue() {
-    this.queue.shift();
+    return this.queue.shift();
   }
 
-  get read(): string | number {
+  get read(): T {
     return this.queue[0];
   }
 }
 
 const queue = new Queue();
-queue.enqueue("hello");
-console.log(queue.read);
+
+////////////////////// Page: 45 - PRINT MANAGER VIA QUEUE
+
+class PrintManager {
+  queue: Queue<string> = new Queue();
+
+  queuePrintJob(document: string) {
+    this.queue.enqueue(document);
+  }
+
+  // Each time this loop runs, we read the document at the front of the queue
+  run() {
+    while (this.queue.read) {
+      // We will print the document and dequeue it at the same time.
+      this.print(this.queue.dequeue()!);
+    }
+  }
+
+  private print(document: string) {
+    // Code to run the actual printer goes here
+    // Demo purposes, we will console.log it
+    console.log(document);
+  }
+}
+
+const printer = new PrintManager();
+
+printer.queuePrintJob("First Document");
+printer.queuePrintJob("Second Document");
+printer.queuePrintJob("Third Document");
+
+// printer.run();
+
+/////////////////////////////////// EXERCISES ///////////////////////
+
+// 1. Writing software for a call center that places them on hold will make good use of a queue
+
+// 2. In a stack, when you pop two off the stack [1,2,3,4,5,6] you would read 6 and then 5
+
+// 3. In a queue [1,2,3,4,5,6] when you dequeue two items, you could dequeue 1 and then 2
+
+// 4. Write a function that uses a stack to reverse a string
+
+const reverseString = (word: string): string => {
+  let stack: string[] = word.split("");
+  let reversedString: string | string[] = [];
+
+  console.log(stack);
+
+  for (let i = 0; i < word.length; i++) {
+    let popped = stack.pop();
+
+    if (popped) {
+      reversedString.push(popped);
+    }
+  }
+
+  return reversedString.join("");
+};
+
+console.log(reverseString("abcdef"));
