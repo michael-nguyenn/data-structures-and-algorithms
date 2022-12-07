@@ -140,8 +140,6 @@ const reverseString = (word: string): string => {
   let stack: string[] = word.split("");
   let reversedString: string | string[] = [];
 
-  console.log(stack);
-
   for (let i = 0; i < word.length; i++) {
     let popped = stack.pop();
 
@@ -153,4 +151,4 @@ const reverseString = (word: string): string => {
   return reversedString.join("");
 };
 
-console.log(reverseString("abcdef"));
+// console.log(reverseString("abcdef"));
