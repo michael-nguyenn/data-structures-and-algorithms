@@ -16,6 +16,15 @@ function countdown(number: number): void {
 // Write an algorithm that takes an array of numbers and doubles each of the numbers within the array.
 // Do in place modifications
 
+function doubleArrayLoop(array: number[]) {
+  let index = 0;
+
+  while (index < array.length) {
+    array[index] *= 2;
+    index += 1;
+  }
+}
+
 function doubleArray(array: number[], index: number = 0) {
   if (index >= array.length) {
     return;
@@ -53,14 +62,13 @@ function doubleArray(array: number[], index: number = 0) {
 // That means sum[2,3,4,5] should yield 14
 // Now to finish the function you have to add 1 to it
 // Add 1 to the result of sum[2,3,4,5]
-
 // return array[0] + sum(the remainder of the array)
 
 const sum = (array: number[]): number => {
   return array.length === 0 ? 0 : array[0] + sum(array.slice(1));
 };
 
-sum([1, 2, 3, 4]);
+sum([1, 2, 3, 4, 5]);
 
 /*
 1. sum(1st) gets called, our array is [1,2,3,4], array[0] = 1 gets added to sum([2,3,4])
@@ -103,14 +111,14 @@ const reverse = (word: string): any => {
   return reverse(word.slice(1)) + word[0];
 };
 
-console.log(reverse("abc"));
+reverse("abc");
 
 /*
 reverse("abc")
-reverse(1st) - We begin our function with adding "a" to the end of reverse("bc"), before it's finished
-reverse(2nd) - Our string is now "bc" and we take word[0] aka b and add it to reverse("c"), before it's finished
-reverse(3rd) - Our string is now "c", we take word[0] aka c and add it to reverse(""), before it's finished
-reverse(4th) - Our string is now "" and enter our base case, returning the word
-reverse(4th) - reverse(3rd) - reverse(2nd) - reverse(1st) complete in that order
-"" + "c" + "b" + "a" = "cba"
+-> reverse(1st) - We begin our function with adding "a" to the end of reverse("bc"), before it's finished
+-> reverse(2nd) - Our string is now "bc" and we take word[0] aka b and add it to reverse("c"), before it's finished
+-> reverse(3rd) - Our string is now "c", we take word[0] aka c and add it to reverse(""), before it's finished
+-> reverse(4th) - Our string is now "" and enter our base case, returning the word
+-> reverse(4th) - reverse(3rd) - reverse(2nd) - reverse(1st) complete in that order
+-> "" + "c" + "b" + "a" = "cba"
 */
