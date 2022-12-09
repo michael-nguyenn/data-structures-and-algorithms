@@ -107,11 +107,10 @@ sum([1,2,3])
 
 const reverse = (word: string): any => {
   if (!word.length) return word;
-
   return reverse(word.slice(1)) + word[0];
 };
 
-reverse("abc");
+reverse("abcdefg");
 
 /*
 reverse("abc")
@@ -121,4 +120,93 @@ reverse("abc")
 -> reverse(4th) - Our string is now "" and enter our base case, returning the word
 -> reverse(4th) - reverse(3rd) - reverse(2nd) - reverse(1st) complete in that order
 -> "" + "c" + "b" + "a" = "cba"
+*/
+
+////////////// Counting X
+
+// A function that returns the number of "x's" in a given string. Example input is "axbxcxd" and will return 3
+
+// Subproblem will be "xbxcxd"
+// Imagining our problem is already finished, we will simply add 1 if our char is "x", in this case not
+
+const countX = (word: string): any => {
+  if (!word.length) return 0;
+
+  if (word[0] === "x") {
+    return 1 + countX(word.slice(1));
+  } else {
+    return countX(word.slice(1));
+  }
+};
+
+// console.log(countX("axbxcxd"));
+
+//////// THE STAIRCASE PROBLEM
+
+// Let's say we have a staircase of N steps, and a person has the ability to climb one, two, or three steps at a time.
+// How many different possible "paths" can someone take to reach the top?
+
+// We can conclude that since the max jump someone can make it three steps
+// numberOfPaths(n-1) + numberOfPaths(n-2) + numberOfPaths(n-3)
+
+// To determine the base case
+// We know that we want numberOfPaths(1) to equal 1 => return 1 if n === 1;
+// We want numberOfPaths(2) and can take advantage that numberOfPaths(2) will compute as
+// numberOfPaths(1) + numberOfPaths(0) + numberOfPaths(-1)
+// Since (1) returns 1, if we make (0) return 1 and (-1) return 0, we end up with 2
+
+// The full function will look like...
+
+const numberOfPaths = (steps: number): any => {
+  if (steps < 0) return 0;
+  if (steps === 0 || steps === 1) return 1;
+
+  return (
+    numberOfPaths(steps - 1) +
+    numberOfPaths(steps - 2) +
+    numberOfPaths(steps - 3)
+  );
+};
+
+console.log(numberOfPaths(5));
+
+////////////// ANAGRAM GENERATION
+
+// Write a function that returns an array of all anagrams of a given string. An anagram is a reordering of
+// all the characters within a string.
+
+const anagramCalculator = (word: string) => {
+  if (word.length === 1) return word[0];
+
+  let collection: string[] = [];
+  let substringAnagrams = anagramCalculator(word.slice(1));
+
+  for (const substringAnagram of substringAnagrams) {
+    for (let i = 0; i <= substringAnagram.length; i++) {
+      let copy = substringAnagram.slice();
+
+      collection.push(copy.slice(0, i) + word[0] + copy.slice(i));
+    }
+  }
+  return collection;
+};
+
+anagramCalculator("abc");
+
+/* 1. We start by creating an empty array in which we'll collect the entire collection of anagrams
+
+  2. Next we grab the array of all anagrams from the substring of our string. This substring is the
+subproblem string, namely, from the second character until the end. For example if the string is "hello"
+the substring is "ello"
+=> let substringAnagrams = anagramCalculator(word.slice(1))
+
+  3. Then we iterate over substringAnagrams
+
+  4. Within each substring of subStringAnagrams, we iterate through all the indexes, make a copy of the substring
+  anagram, and insert the first character of our string (the only character not contained within the substring) into that index.
+  Each time we do this, we have created a new anagram, which we then add to our collection
+
+  5. Finally once we return the collection, our base case is where the substring contains only on character, 
+  in which case there's only one anagram - the character itself
+
 */
