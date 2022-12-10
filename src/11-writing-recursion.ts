@@ -168,7 +168,7 @@ const numberOfPaths = (steps: number): any => {
   );
 };
 
-console.log(numberOfPaths(5));
+// console.log(numberOfPaths(5));
 
 ////////////// ANAGRAM GENERATION
 
@@ -191,7 +191,7 @@ const anagramCalculator = (word: string) => {
   return collection;
 };
 
-anagramCalculator("abc");
+const allAnagrams = anagramCalculator("abcd");
 
 /* 1. We start by creating an empty array in which we'll collect the entire collection of anagrams
 
@@ -210,3 +210,56 @@ the substring is "ello"
   in which case there's only one anagram - the character itself
 
 */
+
+//////////////////// EXERCISES
+
+// 1. Write a function that accepts an array of strings and returns the total number of characters across all the strings
+// For example, input = ["ab","c","def", "ghij"], the output = 10
+
+const charCounter = (array: string[]): any => {
+  if (array.length === 0) return 0;
+
+  return array[0].length + charCounter(array.slice(1));
+};
+
+// console.log(charCounter(["ab", "c", "def", "ghij"]));
+
+// 2. Write a function that accepts an array of numbers and returns a new array containing just the
+// even numbers
+// input = [1,2,3,4,5,6,7,8,9,10] output = [2,4,6,8,10]
+
+const evenCounter = (array: number[]): any => {
+  if (array.length === 0) return [];
+
+  if (array[0] % 2 === 0) {
+    return array[0] + evenCounter(array.slice(1));
+  } else {
+    return evenCounter(array.slice(1));
+  }
+};
+
+// console.log(evenCounter([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+
+// 3. Write a function to calculate the numerical sequence known as the "Triangle Numbers".
+// Pattern is by incrementing number by 1 for N numbers
+// 1,3,6,10,15,21,28
+
+const triangleNumber = (num: number): any => {
+  if (num === 1) return 1;
+
+  return num + triangleNumber(num - 1);
+};
+
+// console.log(triangleNumber(2));
+
+// 4. Write a function that accepts a string and returns the first index that contains the character "x"
+// input ="abcdefghijklmnopqrstuvwxyz" output = index 23
+
+const indexOfX = (word: string, index: number = 0): any => {
+  if (word[0] === "x") return index;
+  if (word.length === 0) return "you don't have an x in there";
+
+  return indexOfX(word.slice(1), index + 1);
+};
+
+// console.log(indexOfX("abcdefghijklmnopqrstuvwxyz"));
