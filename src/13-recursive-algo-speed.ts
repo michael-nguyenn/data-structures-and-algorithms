@@ -1,4 +1,4 @@
-///////////// PARTITIONING
+///////////// PARTITIONING & QUICK SORT
 /* 
  Take a random value from the array - which is then called the pivot - and make sure that every number that 
  is less than the pivot ends up to the left of the pivot, and that every number greater than the pivot
@@ -73,4 +73,82 @@ class QuickSort {
   }
 }
 
-console.log(QuickSort.sort([1, 3, 2, 12, 1213, 4]));
+// console.log(QuickSort.sort([1, 3, 2, 12, 1213, 4]));
+
+// Quick Sort has a O(N log N)
+
+//////////// QUICK SELECT
+
+class QuickSelect {
+  // This is the public method that can be called to find the kth smallest element
+  public static select(arr: number[], k: number): number {
+    // If the input array is empty, throw an error
+    if (arr.length === 0) {
+      throw new Error("Cannot find kth smallest element in an empty list.");
+    }
+
+    // Call the recursive helper method to do the actual work
+    return this.selectRecursive(arr, k, 0, arr.length - 1);
+  }
+
+  // This is the recursive helper method that does the work of finding the kth smallest element
+  private static selectRecursive(
+    arr: number[],
+    k: number,
+    start: number,
+    end: number
+  ): number {
+    // If the start and end indices are the same, we have reached the base case
+    if (start === end) {
+      return arr[start];
+    }
+
+    // Partition the array around a pivot element
+    const pivotIndex = this.partition(arr, start, end);
+
+    // If the pivot index is equal to k, return the pivot element
+    if (pivotIndex === k) {
+      return arr[k];
+    }
+    // If the pivot index is less than k, recursively search the right subarray
+    else if (pivotIndex < k) {
+      return this.selectRecursive(arr, k, pivotIndex + 1, end);
+    }
+    // If the pivot index is greater than k, recursively search the left subarray
+    else {
+      return this.selectRecursive(arr, k, start, pivotIndex - 1);
+    }
+  }
+
+  // This method partitions the array around a pivot element
+  private static partition(arr: number[], start: number, end: number): number {
+    // Choose the last element in the subarray as the pivot
+    const pivot = arr[end];
+    // Set the pivot index to the start of the subarray
+    let pivotIndex = start;
+
+    // Iterate through the subarray, swapping elements that are less than the pivot to the left of the pivot index
+    for (let i = start; i < end; i++) {
+      if (arr[i] < pivot) {
+        this.swap(arr, i, pivotIndex);
+        pivotIndex++;
+      }
+    }
+
+    // Swap the pivot element with the element at the pivot index
+    this.swap(arr, pivotIndex, end);
+    // Return the pivot index
+    return pivotIndex;
+  }
+
+  // This method swaps the elements at the given indices in the array
+  private static swap(arr: number[], i: number, j: number): void {
+    const temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+}
+
+const arr = [3, 2, 1, 5, 4];
+const k = 3;
+const kthSmallest = QuickSelect.select(arr, k);
