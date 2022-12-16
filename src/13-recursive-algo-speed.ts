@@ -152,3 +152,15 @@ class QuickSelect {
 const arr = [3, 2, 1, 5, 4];
 const k = 3;
 const kthSmallest = QuickSelect.select(arr, k);
+
+////////////////// EXERCISES
+
+// 1. Given an array of positive numbers, write a function that returns the greatest product of any three numbers
+
+function greatestProductOf3(array: number[]) {
+  array.sort((a, b) => (a < b ? -1 : 1));
+
+  return (
+    array[array.length - 1] * array[array.length - 2] * array[array.length - 3]
+  );
+}
